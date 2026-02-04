@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Vapi Middle Man</title>
+  </head>
+  <body>
+    <h1>Press the button to talk to Taylor.</h1>
+    <button onclick="startCall()">Start Conversation</button>
+    <p id="message">Message not received.</p>
+    <p id="button-result">Button not clicked.</p>
+  </body>
+  <script>
+    window.addEventListener("message", (event) => {
+      // if (event.origin !== "https://example.com") {
+      //   return;
+      // }
+      console.log("Message received:", event.data);
+    
+      // You can process the message data here and update the DOM
+      const messageElement = document.getElementById("message");
+      messageElement.textContent = "Received: " + event.data;
+    }, false);
+    function startCall() {
+      const buttonElement = document.getElementById("button-result");
+      buttonElement.textContent = "Button was clicked!";
+    }
+  </script>
+</html>
