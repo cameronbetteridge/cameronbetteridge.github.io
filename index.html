@@ -10,13 +10,14 @@
     <p id="button-result">Button not clicked.</p>
   </body>
   <script>
+    window.parent.postMessage("iframe-ready", "*");
+    
     window.addEventListener("message", (event) => {
       // if (event.origin !== "https://example.com") {
       //   return;
       // }
       console.log("Message received:", event.data);
-    
-      // You can process the message data here and update the DOM
+      
       const messageElement = document.getElementById("message");
       messageElement.textContent = "Received: " + event.data;
     }, false);
