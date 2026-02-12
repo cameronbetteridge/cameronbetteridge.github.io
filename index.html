@@ -10,11 +10,13 @@
     <p id="button-result">Button not clicked.</p>
   </body>
   <script>    
+    let connected = false;
     window.addEventListener("message", (event) => {
       // if (event.origin !== "https://example.com") {
       //   return;
       // }
       console.log("Message received:", event.data);
+      connected = true;
       
       const messageElement = document.getElementById("message");
       messageElement.textContent = "Received: " + event.data;
@@ -24,6 +26,10 @@
       buttonElement.textContent = "Button was clicked!";
     }
 
-    window.parent.postMessage("iframe-ready", "*"); // Once working, replace '*' with the correct url
+    const interval = setInterval(() => {
+      if (!connected) {
+        window.parent.postMessage("iframe-ready", "*"); // Once working, replace '*' with the correct url
+      }
+    });
   </script>
 </html>
