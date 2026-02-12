@@ -9,9 +9,7 @@
     <p id="message">Message not received.</p>
     <p id="button-result">Button not clicked.</p>
   </body>
-  <script>
-    window.parent.postMessage("iframe-ready", "*");
-    
+  <script>    
     window.addEventListener("message", (event) => {
       // if (event.origin !== "https://example.com") {
       //   return;
@@ -25,5 +23,7 @@
       const buttonElement = document.getElementById("button-result");
       buttonElement.textContent = "Button was clicked!";
     }
+
+    window.parent.postMessage("iframe-ready", "*"); // Once working, replace '*' with the correct url
   </script>
 </html>
