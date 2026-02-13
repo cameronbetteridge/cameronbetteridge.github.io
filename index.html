@@ -15,9 +15,10 @@
       // if (event.origin !== "https://example.com") {
       //   return;
       // }
-      connected = true;
-      apiKey = event.data.apiKey;
-      data = event.data.data;
+		console.log("Iframe received data");
+    	connected = true;
+    	apiKey = event.data.apiKey;
+    	data = event.data.data;
     }, false);
     
     const interval = setInterval(() => {
