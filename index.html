@@ -5,28 +5,53 @@
   </head>
   <body>
     <h1>Press the button to talk to Taylor.</h1>
-    <button onclick="startCall()" style="width: 300px; height:100px;">Start Conversation</button>
+    <button id="vapi-call-btn" style="width: 300px; height:100px;">Start Conversation</button>
   </body>
   <script>    
     let connected = false;
     let apiKey = "";
+    let data = {};
     window.addEventListener("message", (event) => {
       // if (event.origin !== "https://example.com") {
       //   return;
       // }
       connected = true;
-      apiKey = event.data;
+      apiKey = event.data.apiKey;
+      data = event.data.data;
     }, false);
     
-    function startCall() {
-      if (!connected) { return; }
-      
-    }
-
     const interval = setInterval(() => {
       if (!connected) {
         window.parent.postMessage("iframe-ready", "*"); // Once working, replace '*' with the correct url
       }
     });
+
+    const script = document.createElement("script");
+    script.type = "text/javascript";
+    script.async = true;
+    script.src = "https://cdn.jsdelivr.net/gh/balacodeio/Vapi-Web-UMD@latest/dist/latest/vapi-web-bundle.min.js";
+
+    script.onload = () => {
+      console.log("Initializing Vapi");
+
+      if (typeof Vapi === "undefined") {
+        console.error("Vapi SDK failed to load.")
+        return;
+      }
+      console.log("Vapi SDK loaded successfully");
+
+      const vapi = new Vapi({
+        apiKey: apiKey
+      });
+
+      const btn = document.getElementById("vapi-call-btn");
+
+      // let callMade = false;
+      btn.onclick = () => {
+        if (connected) { // && !callMade) {
+          vapi.start(data);
+        }
+    }
+		document.head.appendChild(script);
   </script>
 </html>
