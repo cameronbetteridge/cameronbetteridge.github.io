@@ -1,8 +1,3 @@
----
-layout: default
-title: Home
----
-
 # Cameron Betteridge
 
 **Computer Scientist**  
